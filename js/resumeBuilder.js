@@ -23,14 +23,6 @@ Array.prototype.each = function(callback) {
 }
 
 
-
-var name = "Yilen Pan";
-var role = "Front end newbie";
-var skills = ["Ruby",  
-              "Javascript",
-              "HTML", "Python", "Ruby on Rails",
-              "Twitter Bootstrap"];
-
 var projects = {
 	"projects" :	[
 			{
@@ -55,56 +47,28 @@ var projects = {
 };
 
 var bio = {
-    "name" : name,
-    "role" : role,
-    "skills" : skills,
+    "name" : "Yilen Pan",
+    "role" : "Front-End/Full-Stack wannabe",
+    "skills" : ["Ruby", "Javascript",
+                "HTML", "Python", "Ruby on Rails",
+                "Twitter Bootstrap"],
     "contact" : {
         "email" : "Yilen.Pan@gmail.com",
         "phone" : "510-207-9833",
         "github" : "yilenpan",
         "twitter" : "@YiPz",
-        "location" : "Oakland, CA"
+        "location" : "Oakland, CA, USA"
         },
     "picture" : "images/fry.jpg",
     "welcomeMessage" : "Welcome to my resume!"
 };
-
-bio.display = function(){
-	formatName = HTMLheaderName.replace("%data%", this.name);
-	formatRole = HTMLheaderRole.replace("%data%", this.role);
-	formatImage = HTMLbioPic.replace("%data%", this.picture);
-	formatMessage = HTMLWelcomeMsg.replace("%data%", this.welcomeMessage);
-	$('#header').prepend(formatName + formatRole);
-	$('#header').append(formatImage);
-	$('#header').append(formatMessage);
-	contacts = [];
-	for (var key in this.contact) {
-  		if (this.contact.hasOwnProperty(key)) {
-    		var c = HTMLcontactGeneric.replace("%contact%", key);
-    		c = c.replace("%data%", this.contact[key]);
-    		contacts.push(c);
-  		}
-	}
-	contacts.each(function(contact){
-		$("#topContacts").append(contact);
-	});
-
-	if (this.skills){
-		$("#header").append(HTMLskillsStart);
-		this.skills.each(function(x){
-			HTMLskillsPost = HTMLskills.replace("%data%", x);
-			$("#skills").append(HTMLskillsPost);
-		});
-	}
-};
-bio.display();
 
 var work = {
 	"jobs" : [
 		{
 			"employer" : "Pantomics",
 			"title" : "Marketing Consultant",
-			"location" : "Richmond, CA",
+			"location" : "Richmond, CA, USA",
 			"dates" : "Jan 2015 - Present",
 			"description" : "Marketing strategist for a leading Tissue Array company" 
 		},
@@ -113,26 +77,26 @@ var work = {
 			"title" : "Staff Writer",
 			"location" : "Beijing, China",
 			"dates" : "May 2014 - Jan 2015",
-			"description" : "Headed screenwriting team for a Chinese Film/TV production company, resulting in eight short films and a feature length screenplay" 
+			"description" : "Headed screenwriting team for a Junren Motion Pictures, resulting in eight short films and a feature length screenplay" 
 		},
 		{
 			"employer" : "Lyft",
 			"title" : "Driver",
-			"location" : "Los Angeles, CA",
+			"location" : "Los Angeles, CA, USA",
 			"dates" : "June 2013 - April 2014",
 			"description" : "Driver for popular Lyft ride-sharing service" 
 		},
 		{
 			"employer" : "Paul Pompian Productions",
 			"title" : "Assistant to Producer",
-			"location" : "Los Angeles, CA",
+			"location" : "Los Angeles, CA, USA",
 			"dates" : "Mar 2010 - Aug 2011",
 			"description" : "Assistant to the Producer" 
 		},
 		{
 			"employer" : "Valhalla Motion Pictures",
 			"title" : "Intern",
-			"location" : "Los Angeles, CA",
+			"location" : "Los Angeles, CA, USA",
 			"dates" : "Oct 2009 - Mar 2010",
 			"description" : "Development Intern / Receptionist for The Walking Dead" 
 		}
@@ -144,7 +108,7 @@ var education = {
     "schools" : [
         { 
             "name" : "American Film Institute",
-            "city" : "Los Angeles, CA",
+            "location" : "Los Angeles, CA, USA",
             "major" : "Screenwriting Fellow",
             "degree" : "MFA",
             "minor" : "",
@@ -152,36 +116,80 @@ var education = {
          },
          {
             "name" : "UC Riverside",
-            "city" : "Riverside, CA",
+            "location" : "Riverside, CA, USA",
             "major" : "Creative Writing",
             "minor" : "Film and Media",
             "degree" : "BA",
             "years" : "2005-2009"
-         },
-         {
-            "name" : "Udacity",
-            "city" : "San Francisco",
-            "major" : "Front-End Nanodegree",
-            "degree" : "Nanodegree",
-            "minor" : "",
-            "years" : "2015"
          }
-    	]
+    	],
+    "onlineCourses" : [
+         {
+            "title" : "Front-End Nanodegree",
+            "school" : "Udacity",
+            "location" : "San Francisco, CA, USA",
+            "date" : "2015",
+            "url" : "www.udacity.com"
+         }
+    ]
 };
+
+bio.display = function(){
+	var formatName = HTMLheaderName.replace("%data%", this.name);
+	var formatRole = HTMLheaderRole.replace("%data%", this.role);
+	var formatImage = HTMLbioPic.replace("%data%", this.picture);
+	var formatMessage = HTMLWelcomeMsg.replace("%data%", this.welcomeMessage);
+	$('#header').prepend(formatName + formatRole);
+	$('#header').append(formatImage);
+	$('#header').append(formatMessage);
+	var contacts = [];
+	for (var key in this.contact) {
+  		if (this.contact.hasOwnProperty(key)) {
+    		var c = HTMLcontactGeneric.replace("%contact%", key);
+    		c = c.replace("%data%", this.contact[key]);
+    		contacts.push(c);
+  		}
+	}
+	contacts.each(function(contact){
+		$("#topContacts").append(contact);
+		$('#footerContacts').append(contact);
+	});
+
+	if (this.skills){
+		$("#header").append(HTMLskillsStart);
+		this.skills.each(function(x){
+			var HTMLskillsPost = HTMLskills.replace("%data%", x);
+			$("#skills:last").append(HTMLskillsPost);
+		});
+	}
+};
+bio.display();
 
 education.display = function(){
 	this.schools.each(function(school){
 		$("#education").append(HTMLschoolStart);
-		formatSchoolName = HTMLschoolName.replace("%data%", school.name);
-		formatSchoolDegree = HTMLschoolDegree.replace("%data%", school.degree);
-		formatSNameSDegree = formatSchoolName + formatSchoolDegree;
-		formatSchoolDates = HTMLschoolDates.replace("%data%", school.years);
-		formatSchoolLocation = HTMLschoolLocation.replace("%data%", school.city);
-		formatSchoolMajor = HTMLschoolMajor.replace("%data%", school.major);
+		var formatSchoolName = HTMLschoolName.replace("%data%", school.name);
+		var formatSchoolDegree = HTMLschoolDegree.replace("%data%", school.degree);
+		var formatSNameSDegree = formatSchoolName + formatSchoolDegree;
+		var formatSchoolDates = HTMLschoolDates.replace("%data%", school.years);
+		var formatSchoolLocation = HTMLschoolLocation.replace("%data%", school.location);
+		var formatSchoolMajor = HTMLschoolMajor.replace("%data%", school.major);
 		$('.education-entry:last').append(formatSNameSDegree);
 		$('.education-entry:last').append(formatSchoolDates);
 		$('.education-entry:last').append(formatSchoolLocation);
 		$('.education-entry:last').append(formatSchoolMajor);
+	});
+	$("#education").append(HTMLonlineClasses);
+	this.onlineCourses.each(function(course){
+		$("#education").append(HTMLschoolStart);
+		var formatOnlineTitle = HTMLonlineTitle.replace("%data%", course.title);
+		var formatOnlineSchool = HTMLonlineSchool.replace("%data%", course.school);
+		var formatOnlineDates = HTMLonlineDates.replace("%data%", course.date);
+		var formatOnlineUrl = HTMLonlineURL.replace("%data%", course.url)
+		$('.education-entry:last').append(formatOnlineTitle+formatOnlineSchool);
+	    $('.education-entry:last').append(formatOnlineDates);
+	    $('.education-entry:last').append(formatOnlineUrl);
+		
 	});
 };
 education.display();
@@ -189,15 +197,15 @@ education.display();
 work.display = function(){
 	this.jobs.each(function(job){
 		$("#workExperience").append(HTMLworkStart);
-		formatEmp = HTMLworkEmployer.replace("%data%",job.employer);
-		formatTitle = HTMLworkTitle.replace("%data%", job.title);
-		formatEmpTitle = formatEmp + formatTitle;
-		formatDates = HTMLworkDates.replace("%data%", job.dates);
-		formatDescription = HTMLworkDescription.replace("%data%", job.description);
-		formatLocation = HTMLworkLocation.replace("%data%", job.location)
+		var formatEmp = HTMLworkEmployer.replace("%data%",job.employer);
+		var formatTitle = HTMLworkTitle.replace("%data%", job.title);
+		var formatEmpTitle = formatEmp + formatTitle;
+		var formatDates = HTMLworkDates.replace("%data%", job.dates);
+		var formatDescription = HTMLworkDescription.replace("%data%", job.description);
+		var formatLocation = HTMLworkLocation.replace("%data%", job.location)
 		$(".work-entry:last").append(formatEmpTitle);
 		$(".work-entry:last").append(formatDates);
-		//$(".work-entry:last").append(formatLocation);
+		$(".work-entry:last").append(formatLocation);
 		$(".work-entry:last").append(formatDescription);
 	});
 };	
@@ -208,10 +216,10 @@ if (work.jobs){
 projects.display = function(){
 	this.projects.each(function(project){
 		$("#projects").append(HTMLprojectStart);
-		formatTitle = HTMLprojectTitle.replace("%data%", project.title);
-		formatDates = HTMLprojectDates.replace("%data%", project.datesWorked);
-		formatDescription = HTMLprojectDescription.replace("%data%", project.description);
-		formatImage = HTMLprojectImage.replace("%data%", project.projectImages);
+		var formatTitle = HTMLprojectTitle.replace("%data%", project.title);
+		var formatDates = HTMLprojectDates.replace("%data%", project.datesWorked);
+		var formatDescription = HTMLprojectDescription.replace("%data%", project.description);
+		var formatImage = HTMLprojectImage.replace("%data%", project.projectImages);
 		$(".project-entry:last").append(formatTitle);
 		$(".project-entry:last").append(formatDates);
 		$(".project-entry:last").append(formatDescription);

@@ -1,0 +1,6 @@
+notes
+
+$('.element').html('html goes here')
+
+.append() //adds content to the end of the html text
+$('.element').append()
